@@ -45,53 +45,6 @@
           }
         }
       ]
-    },
-    {
-      "address": "tcp://0.0.0.0:10443",
-      "filters": [
-        {
-          "type": "read",
-          "name": "http_connection_manager",
-          "config": {
-            "codec_type": "auto",
-            "stat_prefix": "egress_https",
-            "access_log": [
-              {
-                "path": "/tmp/envoy-traffic"
-              }
-            ],
-            "generate_request_id": true,
-            "route_config": {
-              "virtual_hosts": [
-                {
-                  "name": "service",
-                  "domains": ["httpbin.org"],
-                  "routes": [
-                    {
-                      "timeout_ms": 0,
-                      "prefix": "/",
-                      "auto_host_rewrite": true,
-                      "cluster": "httpbin_tls_service",
-                      "retry_policy": {
-                        "retry_on": "5xx",
-                        "num_retries": 3
-                      }
-
-                    }
-                  ]
-                }
-              ]
-            },
-            "filters": [
-              {
-                "type": "decoder",
-                "name": "router",
-                "config": {}
-              }
-            ]
-          }
-        }
-      ]
     }
   ],
   "cluster_manager": {
